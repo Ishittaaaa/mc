@@ -1,3 +1,4 @@
+#channel 4
 python file 
 import numpy as np
 
@@ -41,3 +42,79 @@ else:
     exit()
 
 # Despread
+
+
+
+
+
+
+#channel 8
+import numpy as np
+
+# Define spreading codes
+c1 = [1, 1, 1, 1, 1, 1, 1, 1]
+c2 = [1, -1, 1, -1, 1, -1, 1, -1]
+c3 = [1, 1, -1, -1, 1, 1, -1, -1]
+c4 = [1, -1, -1, 1, 1, -1, -1, 1]
+c5 = [1, 1, 1, 1, -1, -1, -1, -1]
+c6 = [1, -1, 1, -1, -1, 1, -1, 1]
+c7 = [1, 1, -1, -1, -1, -1, 1, 1]
+c8 = [1, -1, -1, 1, -1, 1, 1, -1]
+
+# Data input
+print("Enter the data bits:")
+d1 = int(input("Enter D1: "))
+d2 = int(input("Enter D2: "))
+d3 = int(input("Enter D3: "))
+d4 = int(input("Enter D4: "))
+d5 = int(input("Enter D5: "))
+d6 = int(input("Enter D6: "))
+d7 = int(input("Enter D7: "))
+d8 = int(input("Enter D8: "))
+
+# Spreading operation
+r1 = np.multiply(c1, d1)
+r2 = np.multiply(c2, d2)
+r3 = np.multiply(c3, d3)
+r4 = np.multiply(c4, d4)
+r5 = np.multiply(c5, d5)
+r6 = np.multiply(c6, d6)
+r7 = np.multiply(c7, d7)
+r8 = np.multiply(c8, d8)
+
+# Combine all spread signals
+resultant_channel = r1 + r2 + r3 + r4 + r5 + r6 + r7 + r8
+print("\nResultant Channel:", resultant_channel)
+
+# User selects which channel to decode
+Channel = int(input("\nEnter the station to listen for (C1=1, C2=2, ..., C8=8): "))
+
+# Assign the corresponding code
+if Channel == 1:
+    rc = c1
+elif Channel == 2:
+    rc = c2
+elif Channel == 3:
+    rc = c3
+elif Channel == 4:
+    rc = c4
+elif Channel == 5:
+    rc = c5
+elif Channel == 6:
+    rc = c6
+elif Channel == 7:
+    rc = c7
+elif Channel == 8:
+    rc = c8
+else:
+    print("Invalid channel selected.")
+    exit()
+
+# Despreading (inner product)
+inner_product = np.multiply(resultant_channel, rc)
+print("Inner Product:", inner_product)
+
+# Recover data
+res1 = sum(inner_product)
+data = res1 / len(inner_product)
+print("Data bit that was sent:", data)
