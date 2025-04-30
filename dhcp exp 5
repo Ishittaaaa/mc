@@ -1,17 +1,17 @@
-____________________________________________Step 2: Router Interface IP Address Configuration
-
 From your CLI:
 Router> enable
 Router# configure terminal
 Com DEPT:
-Router(config)# interface fastEthernet0/0
+Router(config)# interface gigabitEthernet0/0
 Router(config-if)# ip address 192.168.10.1 255.255.255.0
 Router(config-if)# no shutdown
+Router(config-if)# exit
+
 ENTC_DEPT:
-Router(config)# interface fastEthernet0/1
+Router(config)# interface gigabitEthernet0/1
 Router(config-if)# ip address 192.168.20.1 255.255.255.0
 Router(config-if)# no shutdown
-
+Router(config-if)# exit
 
 
 ________________________________________________Step 3: DHCP Configuration on Router
@@ -21,12 +21,14 @@ Router(config)# ip dhcp excluded-address 192.168.10.1
 Router(config)# ip dhcp excluded-address 192.168.20.1
 
 ip dhcp pool comp
-network 192.168.10.0 255.255.255.0
+network 192.168.10.1 255.255.255.0
 default-router 192.168.10.1 
+exit
 
 ip dhcp pool entc
-network 192.168.20.0 255.255.255.0
+network 192.168.20.1 255.255.255.0
 default-router 192.168.20.1
+exit
 
 _______________________________________________Step 4: PC and Laptop DHCP Setup
 For each PC and Laptop:
@@ -36,5 +38,5 @@ For each PC and Laptop:
 
 ______________________________________________________________________
 Click on the router 
-Router# show ip dhep binding
+Router# show ip dhcp binding
 Router(config)#do show ip interface brief
