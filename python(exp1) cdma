@@ -41,7 +41,15 @@ else:
     print("Invalid channel selected.")
     exit()
 
-# Despread
+# Despreading (inner product)
+inner_product = np.multiply(resultant_channel, rc)
+print("Inner Product:", inner_product)
+
+# Recover data
+res1 = sum(inner_product)
+data = res1 / len(inner_product)
+print("Data bit that was sent:", data)
+
 
 
 
